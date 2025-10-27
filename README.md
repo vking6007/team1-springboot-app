@@ -50,8 +50,11 @@ The application supports two profiles:
 - Java 17 or higher
 - Maven 3.6 or higher
 - PostgreSQL database running on the configured hosts
+- Docker (optional, for containerized deployment)
 
 ### Running the Application
+
+#### Option 1: Traditional Maven Run
 
 1. **Default (Development Profile):**
    ```bash
@@ -71,6 +74,36 @@ The application supports two profiles:
    ```bash
    mvn clean package
    java -jar target/team1-springboot-app-0.0.1-SNAPSHOT.jar
+   ```
+
+#### Option 2: Docker Deployment
+
+1. **Build and Run with Docker Compose (Recommended):**
+   ```bash
+   # Build and start all services (app + databases)
+   docker-compose up --build
+   
+   # Run in background
+   docker-compose up -d --build
+   ```
+
+2. **Build Docker Image Manually:**
+   ```bash
+   # Windows
+   .\build-docker.bat
+   
+   # Linux/Mac
+   chmod +x build-docker.sh
+   ./build-docker.sh
+   ```
+
+3. **Run Docker Container:**
+   ```bash
+   # Run with external database
+   docker run -p 8080:8080 team1-springboot-app
+   
+   # Run with specific profile
+   docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod team1-springboot-app
    ```
 
 ## Testing Database Connection
@@ -122,10 +155,22 @@ mvn test -Dspring.profiles.active=dev
 
 ## Database Setup
 
+### Option 1: External Database
 Make sure your PostgreSQL database is running and accessible with the configured connection details. The application will:
 
 - **Dev profile**: Automatically create/update the `users` table
 - **Prod profile**: Validate that the `users` table exists with the correct schema
+
+### Option 2: Docker Database (Recommended)
+The `docker-compose.yml` file includes PostgreSQL databases:
+
+- **Development Database**: `postgres-dev` service on port 5432
+- **Production Database**: `postgres-prod` service on port 5442
+
+Both databases are automatically configured with:
+- Proper timezone settings (UTC)
+- Required databases and users
+- Persistent data volumes
 
 ## Troubleshooting
 

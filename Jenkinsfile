@@ -58,7 +58,7 @@ pipeline {
             steps {
                 sh 'docker ps | grep ${CONTAINER_NAME}'
                 sh 'sleep 10'
-                sh 'curl -f http://localhost:8082/api/users/health || echo "Health check failed"'
+                sh 'curl -f http://team1-springboot-app:8080/api/users/health || echo "Health check failed"'
             }
         }
     }
@@ -69,6 +69,7 @@ pipeline {
         }
         success {
             echo "🎉 Deployment successful! App is running on http://localhost:8082"
+            echo "🔗 Internal container communication: http://team1-springboot-app:8080"
         }
         failure {
             echo "❌ Deployment failed. Check logs for details."

@@ -10,5 +10,5 @@ COPY target/*.jar app.jar
 # Expose Spring Boot port
 EXPOSE 8081
 
-# Run Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run Spring Boot with UTC timezone
+ENTRYPOINT ["java", "-Duser.timezone=UTC", "-jar", "app.jar"]

@@ -1,4 +1,4 @@
-# Base image with JDK
+# Base image with JDK 21
 FROM openjdk:21-jdk-slim
 
 # Set working directory

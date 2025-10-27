@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK21'
+        maven 'Maven_3.9.6'
+    }
+
     environment {
         IMAGE_NAME = "team1-springboot-app"
         CONTAINER_NAME = "team1-springboot-app"

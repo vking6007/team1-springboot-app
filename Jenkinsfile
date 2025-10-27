@@ -44,7 +44,7 @@ pipeline {
                     docker run -d \
                       --name ${CONTAINER_NAME} \
                       --network ${NETWORK} \
-                      -p 8082:8080 \
+                      -p 8082:8081 \
                       -e SPRING_PROFILES_ACTIVE=dev \
                       -e SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST}:5432/${DB_NAME} \
                       -e SPRING_DATASOURCE_USERNAME=${DB_USER} \
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 sh 'docker ps | grep ${CONTAINER_NAME}'
                 sh 'sleep 10'
-                sh 'curl -f http://team1-springboot-app:8080/api/users/health || echo "Health check failed"'
+                sh 'curl -f http://team1-springboot-app:8081/api/users/health || echo "Health check failed"'
             }
         }
     }
